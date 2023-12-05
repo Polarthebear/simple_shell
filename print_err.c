@@ -1,7 +1,7 @@
 #include "shell.h"
 
 /**
- * err - print an error message to stderr and exit with a code
+ * err - print an error message to stderr and exits
  * @message: error message to be printed
  * @av: name of the command that caused the error
  *
