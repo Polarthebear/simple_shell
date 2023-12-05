@@ -1,6 +1,6 @@
 **simple_shell**
 
-- `prompt_l.c` display a prompt and wait for the user to type a command
+- `prompt.c` display a prompt and wait for the user to type a command
 - `split.c` splits a string
 - `exec.c` executes commands
 - `print_err.c` print an error message to stderr and exits
