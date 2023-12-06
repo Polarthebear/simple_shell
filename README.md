@@ -6,5 +6,5 @@
 - `print_err.c` print an error message to stderr and exits
 - `simple_shell.c` UNIX command line interpreter
 - `shell.h` main header file for simple shell
-
+- `utilities.c` short helper functions
 
