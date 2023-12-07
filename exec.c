@@ -1,32 +1,51 @@
 #include "shell.h"
 
 /**
- * exec - executes commands
- * @argv: array of commands
- *
- * Return: -1 on failure
+ * exec - main entry point
+ * Description: Executes commands
+ * @argv: argument array(including command)
+ * Return: 0 (Successful) or -1 (Fail)
  */
-
-int exec(char *argv[])
+int exec(char **argv)
 {
+	char *command = NULL; 
+	char *command_path = NULL;
 	pid_t pid;
-	int exe;
 
-	pid = fork();
-	if (pid == -1)
-		return (-1);
-
-	if (pid == 0)
+	if (argv)
 	{
-		exe = execve(argv[0], argv, NULL);
-		if (exe == -1)
+		/*find the command*/
+		command = argv[0];
+
+		/*get the command path before passing to execve*/
+		command_path = location(command);
+
+		/*forking a process*/
+		pid = fork();
+	        
+		if (pid == -1)
+		{
+			perror("Fork failed");
 			return (-1);
-	}
-	else
-	{
-		wait(NULL);
-	}
+		}
 
-	return (0);
-}
-
+		
+		if (pid == 0)
+		{
+			/*child process*/
+			if (execve(command_path, argv, NULL) == -1)
+			{
+				perror("Error:");
+				exit(EXIT_FAILURE);
+			}
+		}
+		else
+		{
+			/*Parent process*/
+			int exe;
+			waitpid(pid, &exe, 0);
+			return (0);
+		}
+	}
+	return (-1);
+}	
