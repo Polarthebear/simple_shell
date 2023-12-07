@@ -11,4 +11,4 @@
 - [`simple_shell.c`](https://github.com/Polarthebear/simple_shell/blob/main/simple_shell.c) - UNIX command line interpreter
 - [`shell.h`](https://github.com/Polarthebear/simple_shell/blob/main/shell.h) - main header file for simple shell
 - [`utilities.c`](https://github.com/Polarthebear/simple_shell/blob/main/utilities.c) - Implementing the exit built-in, that exits the shell
-
+- [`location.c`](https://github.com/Polarthebear/simple_shell/blob/main/location.c) - Function for Path handling and command execution
