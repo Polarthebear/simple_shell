@@ -12,7 +12,6 @@ int exec(char *argv[])
 	pid_t pid;
 	int exe;
 
-
 	pid = fork();
 	if (pid == -1)
 		return (-1);

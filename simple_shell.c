@@ -13,7 +13,7 @@ int main(int ac, char **av, char **env)
 {
 	char *input, **argv;
 	ssize_t nread;
-	int i, result;
+	int result;
 	(void) ac;
 	(void) env;
 
@@ -32,21 +32,16 @@ int main(int ac, char **av, char **env)
 		if (nread > 1)
 		{
 			argv = split(input);
+			kill_p(argv[0], -1);
 			result = exec(argv);
 			if (result == -1)
 			{
 				err("No such file or directory", av[0]);
 				break;
 			}
-
-			for (i = 0; argv[i] != NULL; i++)
-			{
-				free(argv[i]);
-			}
-			free(argv);
+			free_cmd_arg(argv);
 		}
 		free(input);
 	}
-
 	return (0);
 }
