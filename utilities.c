@@ -12,7 +12,7 @@ void free_cmd_arg(char **arr)
 
 	for (i = 0; arr[i] != NULL; i++)
 	{
-		 free(arr[i]);
+		free(arr[i]);
 	}
 	free(arr);
 }
