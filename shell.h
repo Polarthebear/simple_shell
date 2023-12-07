@@ -11,6 +11,7 @@ void err(const char *message, char *av);
 ssize_t prompt(char **input);
 char **split(const char *input);
 int exec(char *agrv[]);
+char *location(char *command);
 #endif
 
 
