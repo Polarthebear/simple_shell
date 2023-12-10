@@ -15,7 +15,6 @@ int main(int ac, char **av, char **env)
 	ssize_t nread;
 	int result;
 	(void) ac;
-	(void) env;
 
 	while (1)
 	{
@@ -32,12 +31,19 @@ int main(int ac, char **av, char **env)
 		if (nread > 1)
 		{
 			argv = split(input);
-			kill_p(argv[0], -1);
-			result = exec(argv);
-			if (result == -1)
+			if (strcmp(argv[0], "env") == 0)
 			{
-				err("No such file or directory", av[0]);
-				break;
+				printenv(env);
+			}
+			else
+			{
+				kill_p(argv[0], -1);
+				result = exec(argv);
+				if (result == -1)
+				{
+					err("No such file or directory", av[0]);
+					break;
+				}
 			}
 			free_cmd_arg(argv);
 		}

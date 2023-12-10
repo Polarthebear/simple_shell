@@ -30,7 +30,7 @@ int exec(char **argv)
 		{
 			if (execve(command_path, argv, NULL) == -1)
 			{
-				perror("Error:");
+				err("command not found", command);
 				exit(EXIT_FAILURE);
 			}
 		}

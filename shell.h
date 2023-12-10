@@ -8,6 +8,7 @@
 #include <sys/types.h>
 #include <sys/wait.h>
 #include <sys/stat.h>
+void printenv(char **env);
 void kill_p(char *cmd, int status);
 void free_cmd_arg(char **arr);
 void err(const char *message, char *av);
