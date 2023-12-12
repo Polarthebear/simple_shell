@@ -16,17 +16,17 @@ char *location(char *command)
 	path = getenv("PATH");
 	if (path)
 	{
-		cpy_path = strdup(path);
-		cmnd_leng = strlen(command);
+		cpy_path = _strdup(path);
+		cmnd_leng = _strlen(command);
 		token_path = strtok(cpy_path, ":");
 		while (token_path != NULL)
 		{
-			dir_leng = strlen(token_path);
+			dir_leng = _strlen(token_path);
 			file_path = malloc(cmnd_leng + dir_leng + 2);
-			strcpy(file_path, token_path);
-			strcat(file_path, "/");
-			strcat(file_path, command);
-			strcat(file_path, "\0");
+			_strcpy(file_path, token_path);
+			_strcat(file_path, "/");
+			_strcat(file_path, command);
+			_strcat(file_path, "\0");
 
 			if (stat(file_path, &buff) == 0)
 			{

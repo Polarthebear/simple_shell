@@ -27,6 +27,6 @@ void free_cmd_arg(char **arr)
 
 void kill_p(char *cmd, int status)
 {
-	if (strcmp(cmd, "exit") == 0)
+	if (_strcmp(cmd, "exit") == 0)
 		_exit(status);
 }

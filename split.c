@@ -15,9 +15,9 @@ char **split(const char *input)
 	char **arr;
 	size_t len, i;
 
-	len = strlen(input);
+	len = _strlen(input);
 	str = malloc(sizeof(char) * (len + 1));
-	strcpy(str, input);
+	_strcpy(str, input);
 
 	arr = malloc(sizeof(char *) * (len + 1));
 
@@ -25,8 +25,8 @@ char **split(const char *input)
 	i = 0;
 	while (word != NULL)
 	{
-		arr[i] = malloc(sizeof(char) * (strlen(word) + 1));
-		strcpy(arr[i], word);
+		arr[i] = malloc(sizeof(char) * (_strlen(word) + 1));
+		_strcpy(arr[i], word);
 		word = strtok(NULL, delim);
 		i++;
 	}

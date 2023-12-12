@@ -14,7 +14,7 @@ void printenv(char **env)
 	env_var = env[i];
 	while (env_var != NULL)
 	{
-		write(STDOUT_FILENO, env_var, strlen(env_var));
+		write(STDOUT_FILENO, env_var, _strlen(env_var));
 		write(STDOUT_FILENO, "\n", 1);
 		i++;
 		env_var = env[i];

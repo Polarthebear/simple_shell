@@ -31,7 +31,7 @@ int main(int ac, char **av, char **env)
 		if (nread > 1)
 		{
 			argv = split(input);
-			if (strcmp(argv[0], "env") == 0)
+			if (_strcmp(argv[0], "env") == 0)
 			{
 				printenv(env);
 			}
