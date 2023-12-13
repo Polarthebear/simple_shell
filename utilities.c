@@ -54,6 +54,7 @@ void kill_p(char *cmd, char *status)
 int _dup2(int oldfd, int newfd)
 {
 	int fd;
+
 	if (oldfd == newfd)
 	{
 		return (newfd);
@@ -81,15 +82,3 @@ int _dup2(int oldfd, int newfd)
  *
  */
 
-void not_active(char **argv)
-{
-	int i = 0;
-
-	for (i = 0; argv[i] != NULL; i++)
-	{
-		write(STDOUT_FILENO, argv[i], strlen(argv[i]));
-		if (argv[i + 1] != NULL)
-			write(STDOUT_FILENO, " ", 1);
-	}
-	write(STDOUT_FILENO, "\n", 1);
-}

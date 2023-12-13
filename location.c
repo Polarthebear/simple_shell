@@ -8,8 +8,7 @@
  */
 char *location(char *command)
 {
-	char *path, *cpy_path;
-	char *token_path, *file_path;
+	char *path, *cpy_path, *token_path, *file_path;
 	int cmnd_leng, dir_leng;
 	struct stat buff;
 
@@ -31,7 +30,6 @@ char *location(char *command)
 			_strcpy(file_path, token_path);
 			_strcat(file_path, "/");
 			_strcat(file_path, command);
-
 			if (stat(file_path, &buff) == 0)
 			{
 				free(cpy_path);
@@ -44,7 +42,6 @@ char *location(char *command)
 			}
 		}
 		free(cpy_path);
-
 		if (stat(command, &buff) == 0)
 		{
 			return (command);

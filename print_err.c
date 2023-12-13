@@ -13,6 +13,5 @@ void err(const char *message, char *av)
 	write(STDERR_FILENO, ": ", 2);
 	write(STDERR_FILENO, message, _strlen(message));
 	write(STDERR_FILENO, "\n", 1);
-	exit(EXIT_FAILURE);
 }
 

@@ -11,9 +11,11 @@ ssize_t prompt(char **input)
 	size_t len = 0;
 	ssize_t nr;
 
-
-	write(STDOUT_FILENO, "$ ", 2);
-	fflush(stdout);
+	if (isatty(STDIN_FILENO))
+	{
+		write(STDOUT_FILENO, "$ ", 2);
+		fflush(stdout);
+	}
 
 	nr = getline(input, &len, stdin);
 
@@ -24,4 +26,3 @@ ssize_t prompt(char **input)
 	}
 	return (nr);
 }
-

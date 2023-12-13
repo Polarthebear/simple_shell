@@ -8,8 +8,8 @@
 #include <sys/types.h>
 #include <sys/wait.h>
 #include <sys/stat.h>
+#include <fcntl.h>
 int exec_with_pipe(char **argv);
-void not_active(char **argv);
 int _dup2(int oldfd, int newfd);
 #define BUFFER_SIZE 1024
 /*Global var*/
