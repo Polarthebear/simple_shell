@@ -13,7 +13,7 @@ char *location(char *command)
 	int cmnd_leng, dir_leng;
 	struct stat buff;
 
-	path = getenv("PATH");
+	path = _getenv("PATH");
 	if (path)
 	{
 		cpy_path = _strdup(path);
