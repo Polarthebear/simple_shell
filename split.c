@@ -20,19 +20,28 @@ char **split(const char *input)
 	_strcpy(str, input);
 
 	arr = malloc(sizeof(char *) * (len + 1));
+	if (arr == NULL)
+	{
+		free(str);
+		return (NULL);
+	}
 
 	word = strtok(str, delim);
 	i = 0;
 	while (word != NULL)
 	{
 		arr[i] = malloc(sizeof(char) * (_strlen(word) + 1));
-		_strcpy(arr[i], word);
+		if (arr[i] == NULL)
+		{
+			free_cmd_arg(arr);
+			return (NULL);
+		}
+		strcpy(arr[i], word);
 		word = strtok(NULL, delim);
 		i++;
 	}
 
 	free(str);
-
 	return (arr);
 }
 

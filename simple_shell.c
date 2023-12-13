@@ -11,16 +11,15 @@
 
 int main(int ac, char **av, char **env)
 {
-	char *input, **argv;
+	char *input, **argv, *status = "";
 	ssize_t nread;
-	int result;
-	(void) ac;
+	int result, exit_status;
+	(void)ac;
 
+	input = NULL;
 	while (1)
 	{
-		input = NULL;
 		nread = prompt(&input);
-
 		if (nread == -1)
 		{
 			write(STDOUT_FILENO, "\n", 1);
@@ -31,23 +30,37 @@ int main(int ac, char **av, char **env)
 		if (nread > 1)
 		{
 			argv = split(input);
-			if (_strcmp(argv[0], "env") == 0)
+			if (!isatty(STDIN_FILENO))
+				not_active(argv);
+
+			if (strchr(input, '|') != NULL)
+			{
+				result = exec_with_pipe(argv);
+			}
+			else if (_strcmp(argv[0], "env") == 0)
 			{
 				printenv(env);
 			}
 			else
 			{
-				kill_p(argv[0], -1);
+				kill_p(argv[0], status);
 				result = exec(argv);
-				if (result == -1)
-				{
-					err("No such file or directory", av[0]);
-					break;
-				}
+				waitpid(-1, &exit_status, 0);
+			}
+			if (result == -1)
+			{
+				err("No such file or directory", av[0]);
+				free_cmd_arg(argv);
+				break;
 			}
 			free_cmd_arg(argv);
 		}
 		free(input);
+
+		if (nread == 0)
+		{
+			break;
+		}
 	}
 	return (0);
 }

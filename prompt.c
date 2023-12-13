@@ -12,7 +12,7 @@ ssize_t prompt(char **input)
 	ssize_t nr;
 
 
-	printf("$ ");
+	write(STDOUT_FILENO, "$ ", 2);
 	fflush(stdout);
 
 	nr = getline(input, &len, stdin);
