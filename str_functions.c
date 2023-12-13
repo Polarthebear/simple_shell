@@ -25,7 +25,6 @@ int _strlen(const char *s)
  * Description: Function that copies a string until NULL Character
  * @dest: Destination
  * @src: Source
- * @dest_size: size of dest buffer
  * Return:POinter to dest (Success) or NULL (Fail)
  */
 char *_strcpy(char *dest, const char *src)
