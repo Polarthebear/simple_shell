@@ -16,13 +16,27 @@ ssize_t prompt(char **input)
 		write(STDOUT_FILENO, "$ ", 2);
 		fflush(stdout);
 	}
+	if (input == NULL)
+	{
+		write(STDERR_FILENO, "Null input pointer\n", 19);
+		return (-1);
+	}
 
 	nr = getline(input, &len, stdin);
 
 	if (nr == -1)
 	{
-		perror("getline");
+		write(STDERR_FILENO, "Input reading error\n", 20);
+		free(*input);
+		*input = NULL;
 		exit(EXIT_FAILURE);
 	}
+
+	if ((*input)[nr - 1] == '\n')
+	{
+		(*input)[nr - 1] = '\0';
+		nr--;
+	}
+
 	return (nr);
 }
