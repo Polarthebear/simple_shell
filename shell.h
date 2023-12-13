@@ -8,11 +8,14 @@
 #include <sys/types.h>
 #include <sys/wait.h>
 #include <sys/stat.h>
+#include <fcntl.h>
+int exec_with_pipe(char **argv);
+int _dup2(int oldfd, int newfd);
 #define BUFFER_SIZE 1024
 /*Global var*/
 extern char **environ;
 void printenv(char **env);
-void kill_p(char *cmd, int status);
+void kill_p(char *cmd, char *status);
 void free_cmd_arg(char **arr);
 void err(const char *message, char *av);
 ssize_t prompt(char **input);
