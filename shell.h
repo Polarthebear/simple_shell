@@ -15,7 +15,7 @@ int _dup2(int oldfd, int newfd);
 /*Global var*/
 extern char **environ;
 void printenv(char **env);
-void kill_p(char *cmd, char *status);
+int kill_p(char *cmd, char *status);
 void free_cmd_arg(char **arr);
 void err(const char *message, char *av);
 ssize_t prompt(char **input);
@@ -23,6 +23,7 @@ char **split(const char *input);
 int exec(char **argv);
 char *location(char *command);
 /*String Functions*/
+int _atoi(char *s);
 int _strlen(const char *s);
 char *_strcpy(char *dest, const char *src);
 char *_strcat(char *dest, const char *src);

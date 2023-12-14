@@ -34,14 +34,15 @@ char **split(const char *input)
 		if (arr[i] == NULL)
 		{
 			free_cmd_arg(arr);
+			free(str);
 			return (NULL);
 		}
-		strcpy(arr[i], word);
+		_strcpy(arr[i], word);
 		word = strtok(NULL, delim);
 		i++;
 	}
 
+	arr[i] = NULL;
 	free(str);
 	return (arr);
 }
-

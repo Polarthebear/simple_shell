@@ -1,7 +1,5 @@
 #include "shell.h"
 
-#include "shell.h"
-
 /**
  * main - UNIX command line interpreter
  * @ac: number of items in av
@@ -10,11 +8,9 @@
  *
  * Return: always (0) on success
  */
-
-int main(__attribute__((unused))int ac, __attribute__((unused))
-		char **av, char **env)
+int main(__attribute__((unused))int ac, __attribute__((unused))char **av, char **env)
 {
-	char *input, **argv, *status = "";
+	char *input, **argv;
 	ssize_t nread;
 	int result, exit_status;
 
@@ -37,20 +33,27 @@ int main(__attribute__((unused))int ac, __attribute__((unused))
 			}
 			else
 			{
-				kill_p(argv[0], status);
 				if (strchr(input, '|') != NULL)
 				{
 					result = exec_with_pipe(argv);
 				}
 				else
 				{
+					exit_status = kill_p(argv[0], argv[1]);
+					if (exit_status != -1)
+					{
+						free_cmd_arg(argv);
+						free(input);
+						return exit_status;
+					}
 					result = exec(argv);
 					waitpid(-1, &exit_status, 0);
-				}
-				if (result != 0 && isatty(STDIN_FILENO))
-				{
-					free_cmd_arg(argv);
-					continue;
+					if (result != 0)
+					{
+						err("No such file or directory", av[0]);
+						free_cmd_arg(argv);
+						continue;
+					}
 				}
 			}
 			free_cmd_arg(argv);
@@ -61,4 +64,3 @@ int main(__attribute__((unused))int ac, __attribute__((unused))
 	}
 	return (0);
 }
-

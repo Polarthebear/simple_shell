@@ -25,22 +25,20 @@ void free_cmd_arg(char **arr)
  *
  */
 
-void kill_p(char *cmd, char *status)
+int kill_p(char *cmd, char *status)
 {
-	int exit_status;
-
-	if (_strcmp(cmd, "exit") == 0)
-	{
-		if (status == NULL)
-		{
-			_exit(0);
-		}
-		else
-		{
-			exit_status = atoi(status);
-			_exit(exit_status);
-		}
-	}
+    if (_strcmp(cmd, "exit") == 0)
+    {
+        if (status == NULL || *status == '\0')
+        {
+            return (0);
+        }
+        else
+        {
+            return (_atoi(status));
+        }
+    }
+    return (-1);
 }
 
 /**
@@ -74,11 +72,4 @@ int _dup2(int oldfd, int newfd)
 	}
 	return (fd);
 }
-
-
-/**
- * not_active - print a command when not in interactive mode
- * @argv: Array of command arguments
- *
- */
 

@@ -6,47 +6,44 @@
  * @argv: argument array (including command)
  * Return: 0 (Successful) or -1 (Fail)
  */
+
 int exec(char **argv)
 {
-	char *command = NULL;
-	char *command_path = NULL;
-	pid_t pid;
-	int status;
+    char *command = NULL;
+    char *command_path = NULL;
+    pid_t pid;
+    int status;
 
-	if (argv)
-	{
-		command = argv[0];
-		command_path = location(command);
-		pid = fork();
+    if (argv)
+    {
+        command = argv[0];
+        command_path = location(command);
+        pid = fork();
 
-		if (pid == -1)
-		{
-			perror("Fork failed");
-			return (-1);
-		}
-		if (pid == 0)
-		{
-			if (execve(command_path, argv, NULL) == -1)
-			{
-				err("not found", command);
-				_exit(EXIT_FAILURE);
-			}
-		}
-		else
-		{
-			waitpid(pid, &status, 0);
-			if (WIFEXITED(status))
-			{
-				return (WEXITSTATUS(status));
-			}
-			else
-			{
-				perror("Child process did not exit normally");
-				return (-1);
-			}
-		}
-	}
-	return (-1);
+        if (pid == -1)
+        {
+            perror("Fork failed");
+            return (-1);
+        }
+        if (pid == 0)
+        {
+            if (execve(command_path, argv, NULL) == -1)
+            {
+                perror("execve");
+                _exit(EXIT_FAILURE);
+            }
+        }
+        else
+        {
+            waitpid(pid, &status, 0);
+            if (WIFEXITED(status) && WEXITSTATUS(status) != 0)
+            {
+                err("Command execution failed", command);
+            }
+            return (WEXITSTATUS(status));
+        }
+    }
+    return (-1);
 }
 
 /**
@@ -83,7 +80,7 @@ int exec_with_pipe(char **argv)
 			_exit(EXIT_FAILURE);
 		}
 		close(pipefd[1]);
-		if (execvp(argv[0], argv) == -1)
+		if (execve(argv[0], argv, NULL) == -1)
 		{
 			perror("execvp");
 			_exit(EXIT_FAILURE);
@@ -109,8 +106,6 @@ int exec_with_pipe(char **argv)
 			perror("Child process did not exit normally");
 			return (-1);
 		}
-		close(STDIN_FILENO);
-		close(STDOUT_FILENO);
 	}
 
 	return (0);

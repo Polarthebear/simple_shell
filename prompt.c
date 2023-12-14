@@ -26,7 +26,6 @@ ssize_t prompt(char **input)
 
 	if (nr == -1)
 	{
-		write(STDERR_FILENO, "Input reading error\n", 20);
 		free(*input);
 		*input = NULL;
 		exit(EXIT_FAILURE);
