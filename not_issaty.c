@@ -10,7 +10,8 @@
 int not_issaty(char **env)
 {
 	char *input = NULL, **cmd;
-	ssize_t nread, len = 0;
+	ssize_t nread;
+	size_t len = 0;
 	int exit_status = 0, execute;
 
 	if (access("/dev/tty", F_OK) != 0)
