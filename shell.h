@@ -9,20 +9,20 @@
 #include <sys/wait.h>
 #include <sys/stat.h>
 #include <fcntl.h>
-int exec_with_pipe(char **argv);
-int _dup2(int oldfd, int newfd);
 #define BUFFER_SIZE 1024
 /*Global var*/
+int not_issaty(char **env);
 extern char **environ;
 void printenv(char **env);
-int kill_p(char *cmd, char *status);
+int exit_(char *status);
 void free_cmd_arg(char **arr);
-void err(const char *message, char *av);
-ssize_t prompt(char **input);
-char **split(const char *input);
+void error(const char *message, char *av);
+ssize_t prompt(char **input, size_t len);
+char **token(const char *input);
 int exec(char **argv);
 char *location(char *command);
 /*String Functions*/
+void *_realloc(void *ptr, size_t new_size);
 int _atoi(char *s);
 int _strlen(const char *s);
 char *_strcpy(char *dest, const char *src);

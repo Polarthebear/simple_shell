@@ -1,6 +1,63 @@
 #include "shell.h"
 
 /**
+ * exit_ - terminate the calling process
+ * @status: exit status
+ *
+ * Return: exit status on success or 0, otherwise return -1
+ */
+
+int exit_(char *status)
+{
+	if (status == NULL || *status == '\0')
+	{
+		return (0);
+	}
+	else
+	{
+		return (_atoi(status));
+	}
+	return (-1);
+}
+
+
+/**
+ * printenv - prints the enviroment
+ * @env: array of enviroment variables
+ *
+ */
+
+void printenv(char **env)
+{
+	int i = 0;
+	char *env_var;
+
+	env_var = env[i];
+	while (env_var != NULL)
+	{
+		write(STDOUT_FILENO, env_var, _strlen(env_var));
+		write(STDOUT_FILENO, "\n", 1);
+		i++;
+		env_var = env[i];
+	}
+}
+
+/**
+ * error - print an error message to stderr and exits
+ * @message: error message to be printed
+ * @av: name of the command that caused the error
+ *
+ */
+
+void error(const char *message, char *av)
+{
+	write(STDERR_FILENO, av, _strlen(av));
+	write(STDERR_FILENO, ": ", 2);
+	write(STDERR_FILENO, message, _strlen(message));
+	write(STDERR_FILENO, "\n", 1);
+}
+
+/**
  * free_cmd_arg - frees array of allocated memory
  * @arr: array of words
  *
@@ -15,61 +72,5 @@ void free_cmd_arg(char **arr)
 		free(arr[i]);
 	}
 	free(arr);
-}
-
-
-/**
- * kill_p - terminate the calling process
- * @cmd: exit string
- * @status: exit status
- *
- */
-
-int kill_p(char *cmd, char *status)
-{
-    if (_strcmp(cmd, "exit") == 0)
-    {
-        if (status == NULL || *status == '\0')
-        {
-            return (0);
-        }
-        else
-        {
-            return (_atoi(status));
-        }
-    }
-    return (-1);
-}
-
-/**
- * _dup2 - duplicate a file descriptor
- * @oldfd: the old file descriptor
- * @newfd: the new file descriptor
- *
- * Return: new file descriptor or -1 on error
- */
-
-int _dup2(int oldfd, int newfd)
-{
-	int fd;
-
-	if (oldfd == newfd)
-	{
-		return (newfd);
-	}
-	close(newfd);
-
-	fd = fcntl(oldfd, F_DUPFD, newfd);
-	if (fd == -1)
-	{
-		return (-1);
-	}
-
-	if (fd != newfd)
-	{
-		close(fd);
-		return (-1);
-	}
-	return (fd);
 }
 

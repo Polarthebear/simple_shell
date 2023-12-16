@@ -3,12 +3,12 @@
 /**
  * prompt - Display a prompt and wait for the user to type a command
  * @input: string
+ * @len: buffer size
  * Return: on success return number of chars read, otherwise return -1
  */
 
-ssize_t prompt(char **input)
+ssize_t prompt(char **input, size_t len)
 {
-	size_t len = 0;
 	ssize_t nr;
 
 	if (isatty(STDIN_FILENO))
@@ -23,18 +23,12 @@ ssize_t prompt(char **input)
 	}
 
 	nr = getline(input, &len, stdin);
-
 	if (nr == -1)
 	{
+		write(STDOUT_FILENO, "\n", 1);
 		free(*input);
 		*input = NULL;
 		exit(EXIT_FAILURE);
-	}
-
-	if ((*input)[nr - 1] == '\n')
-	{
-		(*input)[nr - 1] = '\0';
-		nr--;
 	}
 
 	return (nr);

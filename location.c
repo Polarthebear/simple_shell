@@ -6,30 +6,31 @@
  * @command: command that was passed
  * Return: Command path
  */
+
 char *location(char *command)
 {
 	char *path, *cpy_path, *token_path, *file_path;
 	int cmnd_leng, dir_leng;
 	struct stat buff;
 
-	path = _getenv("PATH");
+	path = getenv("PATH");
 	if (path)
 	{
-		cpy_path = _strdup(path);
-		cmnd_leng = _strlen(command);
+		cpy_path = strdup(path);
+		cmnd_leng = strlen(command);
 		token_path = strtok(cpy_path, ":");
 		while (token_path != NULL)
 		{
-			dir_leng = _strlen(token_path);
+			dir_leng = strlen(token_path);
 			file_path = malloc(cmnd_leng + dir_leng + 2);
 			if (file_path == NULL)
 			{
 				free(cpy_path);
 				return (NULL);
 			}
-			_strcpy(file_path, token_path);
-			_strcat(file_path, "/");
-			_strcat(file_path, command);
+			strcpy(file_path, token_path);
+			strcat(file_path, "/");
+			strcat(file_path, command);
 			if (stat(file_path, &buff) == 0)
 			{
 				free(cpy_path);
@@ -49,3 +50,4 @@ char *location(char *command)
 	}
 	return (NULL);
 }
+
